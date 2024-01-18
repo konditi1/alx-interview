@@ -2,6 +2,8 @@
 """
 Minimum Operations
 """
+
+
 def minOperations(n):
     # Base case: If n is 0 or 1, no operations needed
     if n <= 1:
@@ -11,6 +13,6 @@ def minOperations(n):
     for i in range(2, n + 1):
         # Check if i is a factor of n
         if n % i == 0:
-            # Recursive call: Calculate minimum operations for the remaining part
+            # Recursive call: Calculate minimum operations for remaining part
             # (n // i) and add the current factor (i) to the result
             return minOperations(n // i) + i
