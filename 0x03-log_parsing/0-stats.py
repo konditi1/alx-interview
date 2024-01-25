@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-
+"""
+This script prints statistics about Nginx logs stored in MongoDB.
+"""
 import re
 import sys
 
