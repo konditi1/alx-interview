@@ -1,27 +1,35 @@
 #!/usr/bin/python3
-"""
-Making Change
+"""Change making module.
 """
 
 
 def makeChange(coins, total):
-    """" Create a list to store the minimum number of coins
-    needed for each total from 0 to 'total_amount'
+    """Determines fewest coins needed to meet given total with a pile of coins.
+
+    Args:
+    - coins (list of int): Available coin denominations.
+    - total (int): Total amount to make change for.
+
+    Returns:
+    - int: Fewest number of coins needed. If not possible, return -1.
     """
-    min_coins = [float('inf')] * (total + 1)
-    min_coins[0] = 0  # 0 coins are needed to make a total of 0
+    if total <= 0:
+        return 0
 
-    # Iterate through each coin value
-    for coin_value in coins:
-        """ Update min_coins[total] for all
-        values of total where total >= coin_value"""
-        for total in range(coin_value, total + 1):
-            min_coins[total] = min(min_coins[total],
-                                   min_coins[total - coin_value] + 1)
+    remaining_amount = total
+    coins_count = 0
+    coin_index = 0
+    sorted_coins = sorted(coins, reverse=True)
+    num_coins = len(coins)
 
-    # If min_coins[total_amount] is still float('inf'),
-    # it means the total cannot be met by any number of coins
-    if min_coins[total] == float('inf'):
-        return -1
-    else:
-        return min_coins[total]
+    while remaining_amount > 0:
+        if coin_index >= num_coins:
+            return -1
+
+        if remaining_amount - sorted_coins[coin_index] >= 0:
+            remaining_amount -= sorted_coins[coin_index]
+            coins_count += 1
+        else:
+            coin_index += 1
+
+    return coins_count
