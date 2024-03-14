@@ -1,5 +1,12 @@
 #!/usr/bin/python3
+"""
+Prime Game"""
 def is_prime(num):
+    """
+     param:
+     num: int
+     return: bool
+    """
     if num < 2:
         return False
     for i in range(2, int(num ** 0.5) + 1):
@@ -9,6 +16,10 @@ def is_prime(num):
 
 
 def get_primes_up_to_n(n):
+    """param:
+    n: int
+    return: list
+    """
     primes = []
     for i in range(2, n + 1):
         if is_prime(i):
@@ -17,6 +28,11 @@ def get_primes_up_to_n(n):
 
 
 def isWinner(x, nums):
+    """param:
+    x: int
+    nums: list
+    return: str
+    """
     maria_wins = 0
     ben_wins = 0
 
