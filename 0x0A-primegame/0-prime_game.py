@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """
 Prime Game"""
+
+
 def is_prime(num):
     """
      param:
