@@ -1,53 +1,56 @@
 #!/usr/bin/python3
 """
-Prime Game"""
+Maria and Ben are playing a game
+"""
 
 
-def is_prime(num):
+def isWinner(rounds, numbers):
+    """Determines the winner of the game.
+
+    Args:
+        rounds (int): Number of rounds.
+        numbers (list of int): List of numbers.
+
+    Returns:
+        str/None: Name of winner ("Ben"/"Maria") orNone if inputs are invalid.
     """
-     param:
-     num: int
-     return: bool
-    """
-    if num < 2:
-        return False
-    for i in range(2, int(num ** 0.5) + 1):
-        if num % i == 0:
-            return False
-    return True
+    if rounds <= 0 or numbers is None or rounds != len(numbers):
+        return None
 
+    ben_score = 0
+    maria_score = 0
 
-def get_primes_up_to_n(n):
-    """param:
-    n: int
-    return: list
-    """
-    primes = []
-    for i in range(2, n + 1):
-        if is_prime(i):
-            primes.append(i)
-    return primes
+    # Sieve of Eratosthenes to generate primes
+    primes = generate_primes(max(numbers))
 
-
-def isWinner(x, nums):
-    """param:
-    x: int
-    nums: list
-    return: str
-    """
-    maria_wins = 0
-    ben_wins = 0
-
-    for n in nums:
-        primes = get_primes_up_to_n(n)
-        if len(primes) % 2 == 0:
-            ben_wins += 1
+    for num in numbers:
+        if sum(primes[:num + 1]) % 2 == 0:
+            ben_score += 1
         else:
-            maria_wins += 1
+            maria_score += 1
 
-    if maria_wins > ben_wins:
-        return "Maria"
-    elif maria_wins < ben_wins:
+    if ben_score > maria_score:
         return "Ben"
+    elif maria_score > ben_score:
+        return "Maria"
     else:
         return None
+
+
+def generate_primes(limit):
+    """Generates prime numbers using Sieve of Eratosthenes.
+
+    Args:
+        limit (int): Upper limit for generating primes.
+
+    Returns:
+        list of int: List contain 1 at prime indices and 0 at composite indices
+    """
+    primes = [1] * (limit + 1)
+    primes[0], primes[1] = 0, 0
+
+    for i in range(2, len(primes)):
+        for j in range(2 * i, len(primes), i):
+            primes[j] = 0
+
+    return primes
